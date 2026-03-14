@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from typing import List
 
 from fastapi import FastAPI, HTTPException
@@ -5,16 +6,21 @@ from app.model import load_model, predict_sentiment
 from app.schemas import TextRequest, PredictionResponse
 from app.schemas import BatchRequest
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Load the model once when the server starts up
+    load_model()
+    yield
+    # Any teardown logic would go here
+
+
 app = FastAPI(
     title="Sentiment Analysis API",
     description="API for predicting sentiment of text using ML model",
-    version="1.0"
+    version="1.0",
+    lifespan=lifespan
 )
-
-
-@app.on_event("startup")
-def startup_event():
-    load_model()
 
 
 @app.get("/health")

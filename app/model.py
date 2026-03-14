@@ -1,5 +1,7 @@
 import joblib
 
+from fastapi import HTTPException
+
 
 MODEL_PATH = "model/sentiment_model.pkl"
 
@@ -13,6 +15,11 @@ def load_model():
 
 
 def predict_sentiment(text: str):
+    if model is None:
+        raise HTTPException(
+            status_code=503,
+            detail="Model is not loaded. Ensure train.py has been run and the server has started correctly."
+        )
 
     prediction = model.predict([text])[0]
 
