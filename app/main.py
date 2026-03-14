@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+from typing import List
+
+from fastapi import FastAPI, HTTPException
 from app.model import load_model, predict_sentiment
 from app.schemas import TextRequest, PredictionResponse
 from app.schemas import BatchRequest
@@ -31,11 +33,11 @@ def predict(request: TextRequest):
         "confidence": confidence
     }
 
-@app.post("/predict/batch")
+@app.post("/predict/batch", response_model=List[PredictionResponse])
 def batch_predict(request: BatchRequest):
 
     if not request.texts:
-        return {"error": "Text list cannot be empty"}
+        raise HTTPException(status_code=400, detail="Text list cannot be empty")
 
     results = []
 
