@@ -75,6 +75,8 @@ Typical accuracy achieved: **~0.88**
 
 ## Installation
 
+Python version: **3.10+**
+
 Clone the repository or unzip the project.
 
 ### Create Virtual Environment
@@ -168,6 +170,14 @@ Response:
 }
 ```
 
+Exact curl example:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/predict" \
+  -H "Content-Type: application/json" \
+  -d "{\"text\": \"I absolutely love how fast the delivery was!\"}"
+```
+
 ---
 
 ### Batch Prediction (Bonus)
@@ -219,6 +229,10 @@ This allows interactive testing of all endpoints.
 ---
 
 ## Design Decisions
+
+## Approach (Required Write-Up)
+
+I used a TF-IDF + Logistic Regression pipeline because it is a strong and efficient baseline for binary sentiment classification. The IMDb dataset was selected because it is balanced, widely used, and suitable for reproducible benchmarking. The API loads the trained model once on startup to keep inference fast and avoid repeated disk I/O on each request. With more time, I would add a neutral class and evaluate a transformer model (such as DistilBERT) to compare performance against this baseline.
 
 ### Why TF-IDF + Logistic Regression?
 
