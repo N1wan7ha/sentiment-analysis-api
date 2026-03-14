@@ -36,12 +36,13 @@ The system is designed as a simple **ML microservice**, where a trained model is
 sentiment-analysis-api
 │
 ├── app
+│   ├── __init__.py    # Marks app as a Python package
 │   ├── main.py        # FastAPI application
 │   ├── model.py       # Model loading and prediction
 │   └── schemas.py     # Request/response schemas
 │
 ├── model
-│   └── sentiment_model.pkl
+│   └── sentiment_model.pkl  # Created after training
 │
 ├── train.py           # Model training script
 ├── requirements.txt   # Python dependencies

@@ -13,6 +13,8 @@ This script:
 Author: Niwantha Sithumal
 """
 
+from pathlib import Path
+
 import pandas as pd
 import joblib
 
@@ -71,7 +73,9 @@ def evaluate_model(model, X_test, y_test):
 def save_model(model):
     """Save trained model"""
 
-    model_path = "model/sentiment_model.pkl"
+    model_dir = Path("model")
+    model_dir.mkdir(parents=True, exist_ok=True)
+    model_path = model_dir / "sentiment_model.pkl"
 
     joblib.dump(model, model_path)
 
