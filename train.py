@@ -35,11 +35,15 @@ def load_data():
 def train_model(X_train, y_train):
     """Create and train the ML pipeline"""
 
+    # TF-IDF captures term importance while keeping the model lightweight.
+    # 10,000 features is a practical cap for speed/memory on this dataset.
     pipeline = Pipeline([
         ("tfidf", TfidfVectorizer(
             stop_words="english",
             max_features=10000
         )),
+        # Logistic Regression is a strong baseline for sparse text features.
+        # max_iter=1000 helps ensure convergence on large text vocabularies.
         ("classifier", LogisticRegression(max_iter=1000))
     ])
 
@@ -83,6 +87,7 @@ def main():
 
     print("\nSplitting dataset...")
 
+    # Fixed random_state keeps results reproducible across runs.
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
