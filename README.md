@@ -81,9 +81,16 @@ Clone the repository or unzip the project.
 
 ### Create Virtual Environment
 
-```
+**macOS / Linux:**
+```bash
 python3 -m venv venv
 source venv/bin/activate
+```
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
 ```
 
 ### Install Dependencies
